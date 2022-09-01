@@ -1,0 +1,2662 @@
+{
+	"info": {
+		"_postman_id": "d2570487-329a-4457-95d5-cd8392f542cb",
+		"name": "Api-Kash-QA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13084746"
+	},
+	"item": [
+		{
+			"name": "SignUp",
+				"item": [
+				{
+					"name": "Terms Conditions",
+					"event": [
+						{
+							"listen": "test",
+						"script": {
+								"exec": [
+									"pm.test(\"Get Termis and Conditions\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/documents?type=TERMS_CONDITIONS&language={{languageValue}}&country={{countryValue}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"documents"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "TERMS_CONDITIONS"
+								},
+								{
+									"key": "language",
+									"value": "{{languageValue}}"
+								},
+								{
+									"key": "country",
+									"value": "{{countryValue}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Privacy Policy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Privacy and Policy\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/documents?type=PRIVACY_POLICY&language={{languageValue}}&country={{countryValue}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"documents"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "PRIVACY_POLICY"
+								},
+								{
+									"key": "language",
+									"value": "{{languageValue}}"
+								},
+								{
+									"key": "country",
+									"value": "{{countryValue}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Attribute",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate Identification\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/verify-attribute?type={{identificationType}}&value={{identificationValue}}&country={{countryValue}}&key=identification",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								"verify-attribute"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "{{identificationType}}"
+								},
+								{
+									"key": "value",
+									"value": "{{identificationValue}}"
+								},
+								{
+									"key": "country",
+									"value": "{{countryValue}}"
+								},
+								{
+									"key": "key",
+									"value": "identification"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Kashtag",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate Kashtag\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/verify_kashtag?kashtag={{kashtagValue}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								"verify_kashtag"
+							],
+							"query": [
+								{
+									"key": "kashtag",
+									"value": "{{kashtagValue}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate Telephone\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})",
+									"",
+									"const getVerificationCode = {",
+									"  url: `https://api-qa.adios.cash/mock/users/verification-code?phone=${pm.variables.get(\"phoneValue\")}`,",
+									"  method: 'GET',",
+									"  header: {",
+									"    'Content-Type': 'application/json',",
+									"    'x-api-key': 'msAjtztf447bRcP6TXlXK8X5pjCgo8kN8iwL60cE'",
+									"  }",
+									"}",
+									"",
+									"pm.sendRequest(getVerificationCode, (err, response) => {",
+									"",
+									"    if(err != null) {",
+									"",
+									"        console.log(err)",
+									"",
+									"    } else {",
+									"",
+									"        const data = response.json()",
+									"        //pm.globals.set(\"codeVerification\", data.code)",
+									"        //pm.variables.set(\"codeVerification\", data.code)",
+									"        pm.environment.set(\"codeVerification\", data.code);",
+									"        ",
+									"    }",
+									"})",
+									"",
+									"/*const uuid4 = {",
+									"  url: 'https://httpbin.org/uuid',",
+									"  method: 'GET'",
+									"}",
+									"",
+									"pm.sendRequest(uuid4, (err, response) => {",
+									"",
+									"    if(err != null){",
+									"",
+									"        console.log(err)",
+									"",
+									"    }else{",
+									"    ",
+									"    const ud = response.json()",
+									"    //pm.globals.set(\"uuid4\", ud.uuid)",
+									"    //pm.variables.set(\"uuid4\", ud.uuid)",
+									"    pm.collectionVariables.set(\"uuid4\", ud.uuid);",
+									"",
+									"    }",
+									"",
+									"})*/",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const email = pm.variables.replaceIn('{{$randomEmail}}')",
+									"const firstName = pm.variables.replaceIn('{{$randomFirstName}}')",
+									"const lastName = pm.variables.replaceIn('{{$randomLastName}}')",
+									"const address = pm.variables.replaceIn('{{$randomStreetAddress}}')",
+									"const uuid = pm.variables.replaceIn('{{$guid}}')",
+									"",
+									"",
+									"pm.environment.set(\"emailValue\", email.toLocaleLowerCase())",
+									"pm.environment.set(\"firstNameValue\", firstName)",
+									"pm.environment.set(\"lastNameValue\", lastName)",
+									"pm.environment.set(\"addressValue\", address)",
+									"pm.environment.set(\"uuid4\", uuid)",
+									"",
+									"//Codigo para generar el uuid 4 manual",
+									"/*let now = new Date().getTime()",
+									"",
+									"let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {",
+									"    let random = (now + Math.random() * 16) % 16 | 0",
+									"",
+									"    now = Math.floor(now / 16)",
+									"",
+									"    return (c == 'x' ? random : (random & 0x3 | 0x8)).toString(16)",
+									"})*/",
+									"",
+									"//pm.globals.set(\"uuid\", uuid);",
+									"//pm.environment.set(\"uuid4\", uuid)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{he_unauthorized-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"phone\": \"+{{phoneValue}}\",\n  \"kashtag\": \"{{kashtagValue}}\",\n  \"iswpmessage\": \"false\",\n  \"email\": \"{{emailValue}}\",\n  \"password\": \"{{passwordValue}}\",\n  \"termsConditionsAndPrivacyPolicy\": true,\n  \"firstName\": \"{{firstNameValue}}\",\n  \"lastName\": \"{{lastNameValue}}\",\n  \"nationality\": \"{{nationalityValue}}\",\n  \"region\": \"CR-H\",\n  \"subregion\": \"San Rafael\",\n  \"exactAddress\": \"{{addressValue}}\",\n  \"identificationType\": \"{{identificationType}}\",\n  \"identification\": \"{{identificationValue}}\",\n  \"language\": \"{{languageValue}}\",\n  \"country\": \"{{countryValue}}\",\n  \"username\": \"{{uuid4}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create-User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{he_unauthorized-api-key}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"phone\": \"+{{phoneValue}}\",\n  \"kashtag\": \"{{kashtagValue}}\",\n  \"iswpmessage\": \"false\",\n  \"email\": \"{{emailValue}}\",\n  \"password\": \"{{passwordValue}}\",\n  \"termsConditionsAndPrivacyPolicy\": true,\n  \"firstName\": \"{{firstNameValue}}\",\n  \"lastName\": \"{{lastNameValue}}\",\n  \"nationality\": \"{{nationalityValue}}\",\n  \"region\": \"CR-H\",\n  \"subregion\": \"San Rafael\",\n  \"identificationType\": \"{{identificationType}}\",\n  \"identification\": \"{{identificationValue}}\",\n  \"language\": \"{{languageValue}}\",\n  \"country\": \"{{countryValue}}\",\n  \"username\": \"{{uuid4}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/users/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"users",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "20"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Jul 2022 05:08:13 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "e2772801-4b4b-4058-b9a8-766938ff2a75"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "VcmdOEeNCYcFcRg="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-62d4eaba-7dfdad4628462c303af4eedf;Sampled=0"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 3646e820868d96a9a274b6177bcbb8ec.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "MIA3-C5"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "Za37n5_r1ZfqxPHLWl5b0lrYHl6jCRONFfwJE7po9kwVOESo2lUVrQ=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"user\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Confirm User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Create Users\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{he_unauthorized-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"kashtag\": \"{{kashtagValue}}\",\n  \"code\": {{codeVerification}},\n  \"identityData\": {\n    \"username\": \"{{uuid4}}\",\n    \"email\": \"{{emailValue}}\",\n    \"password\": \"{{passwordValue}}\",\n    \"termsConditionsAndPrivacyPolicy\": true,\n    \"firstName\": \"{{firstNameValue}}\",\n    \"lastName\": \"{{lastNameValue}}\",\n    \"nationality\": \"{{nationalityValue}}\",\n    \"region\": \"CR-A\",\n    \"subregion\": \"Grecia\",\n    \"exactAddress\": \"{{addressValue}}\",\n    \"identificationType\": \"{{identificationType}}\",\n    \"identification\": \"{{identificationValue}}\",\n    \"kashtag\": \"{{kashtagValue}}\",\n    \"language\": \"{{languageValue}}\",\n    \"country\": \"{{countryValue}}\",\n    \"phone\": \"+{{phoneValue}}\",\n    \"idType\": \"{{identificationType}}\"\n  },\n  \"username\": \"{{uuid4}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/confirm",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    //pm.response.to.have.status(200)",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"",
+									"    const response = JSON.parse(responseBody)",
+									"",
+									"    const dataResult = response.AuthenticationResult",
+									"",
+									"    const accessToken = dataResult.AccessToken",
+									"    const dataIdToken = dataResult.IdToken",
+									"    const dataType = dataResult.TokenType",
+									"",
+									"    pm.environment.set(\"accessTokenValue\", accessToken)",
+									"    pm.environment.set(`token${ dataType }`, dataIdToken)",
+									"",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-amz-json-1.1",
+								"type": "text"
+							},
+							{
+								"key": "X-Amz-Target",
+								"value": "AWSCognitoIdentityProviderService.InitiateAuth",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"AuthFlow\": \"USER_PASSWORD_AUTH\",\n    \"AuthParameters\": {\n        \"PASSWORD\": \"{{passwordValue}}\",\n        \"USERNAME\": \"{{kashtagValue}}\"\n    },\n    \"ClientId\": \"{{cognitoClientId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cognitoUrl}}",
+							"host": [
+								"{{cognitoUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Create User\", function () {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"",
+									"    const response = JSON.parse(responseBody)",
+									"",
+									"    pm.environment.set(\"idKashtagValue\", response.id)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Personal Information",
+			"item": [
+				{
+					"name": "Additional Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Search Additional Profile\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Additional Profile",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const occupation    = pm.variables.replaceIn('{{$randomJobType}}')",
+									"const address       = pm.variables.replaceIn('{{$randomStreetAddress}}')",
+									"",
+									"pm.environment.set(\"occupationValue\", occupation)",
+									"pm.environment.set(\"addressValue\", address)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"language\": \"{{languageValue}}\",\n  \"user\": {\n    \"occupation\": \"{{occupationValue}}\",\n    \"region\": \"CR-P\",\n    \"city\": \"OSA\",\n    \"birth_date\": \"1990-06-20T06:00:00.000Z\",\n    \"exact_address\": \"{{addressValue}}\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create Payment Instrument",
+			"item": [
+				{
+					"name": "Token Finix",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Post Token Payment Instrument Finix\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"",
+									"    const response = JSON.parse(responseBody)",
+									"",
+									"    pm.environment.set(\"cardTokenValue\", response.id)",
+									"    pm.environment.set(\"fingerprintValue\", response.fingerprint)",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"PAYMENT_CARD\",\n  \"currency\": \"{{currencyValue}}\",\n  \"name\": \"{{firstNameValue}}\",\n  \"number\": \"{{oneNumberCardValue}}\",\n  \"security_code\": \"258\",\n  \"expiration_month\": \"10\",\n  \"expiration_year\": \"2025\",\n  \"address\": {\n    \"line1\": \"Guacimo\",\n    \"city\": \"CR-L\",\n    \"country\": \"CRI\",\n    \"postal_code\": \"10903\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mock/finix/applications/APouAPXm8dEDXusxx4oAEX1u/tokens",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mock",
+								"finix",
+								"applications",
+								"APouAPXm8dEDXusxx4oAEX1u",
+								"tokens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment Instrument",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let letter = Math.random().toString(36).replace(/[^a-z]+/g, '').substring(2, 6)",
+									"",
+									"let alias = letter.toLocaleUpperCase()",
+									"",
+									"pm.environment.set(\"aliasValue\", alias)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Post Payment Instrument\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "app-version",
+								"value": "2.10.2",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"{{cardTokenValue}}\",\n  \"fingerprint\": \"{{fingerprintValue}}\",\n  \"country\": \"{{countryValue}}\",\n  \"alias\": \"{{aliasValue}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/payment-instruments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"payment-instruments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment Instrument",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Payment Instrument\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"",
+									"    const response = JSON.parse(responseBody)",
+									"",
+									"    const idPaymentInstrument = response.paymentInstruments[0].id",
+									"",
+									"    pm.environment.set(\"idPaymentInstrument\", idPaymentInstrument)",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/payment-instruments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"payment-instruments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment Instrument",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Update Alias\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"alias\": \"{{aliasValue}}QA\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/payment-instruments/{{idPaymentInstrument}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"payment-instruments",
+								"{{idPaymentInstrument}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment Instrument status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/payment-instruments/{{idPaymentInstrument}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"payment-instruments",
+								"{{idPaymentInstrument}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transfer to Kashtag",
+			"item": [
+				{
+					"name": "General Settings",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get modules option transfer\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/general-settings?screenKey=_transferMainScreen",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"general-settings"
+							],
+							"query": [
+								{
+									"key": "screenKey",
+									"value": "_transferMainScreen"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment Instruments Services",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Payment Instrument Service\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/payment-instruments/services",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"payment-instruments",
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Contacts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Contacts\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/contacts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users Search",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get User Search Kashtag\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"",
+									"    const response = JSON.parse(responseBody)",
+									"",
+									"    const destinationUserId    =   response.users[0].id",
+									"    const destinationKashtag   =   response.users[0].kashtag",
+									"    const addToFavorite        =   response.users[0].favorite",
+									"",
+									"    pm.environment.set(\"destinationUserIdValue\", destinationUserId)",
+									"    pm.environment.set(\"destinationKashtagValue\", destinationKashtag)",
+									"    pm.environment.set(\"addToFavoriteValue\", addToFavorite)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/search?lookup={{SearchKashtagValue}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "lookup",
+									"value": "{{SearchKashtagValue}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Contacts Favorites",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get User Search Favorite Kashtag\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/contacts/favorites?limit=99&nextContactId=0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"contacts",
+								"favorites"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "99"
+								},
+								{
+									"key": "nextContactId",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Service Cost Min Amount",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Service Cost Min Amount\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"",
+									"    const response = JSON.parse(responseBody)",
+									"",
+									"    pm.environment.set(\"minAmoutValue\", response.minAmount)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/service-cost/min-amount?country=CRI&isCrossBorder=false",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"service-cost",
+								"min-amount"
+							],
+							"query": [
+								{
+									"key": "country",
+									"value": "CRI"
+								},
+								{
+									"key": "isCrossBorder",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Awaiting Requests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Awaiting Requests\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/awaiting-requests/requirements",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"awaiting-requests",
+								"requirements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Service Cost",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Service Cost\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/service-cost?country={{countryValue}}&brand=VISA&amount=210&cross-border=false&transactionSubType=REGULAR",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"service-cost"
+							],
+							"query": [
+								{
+									"key": "country",
+									"value": "{{countryValue}}"
+								},
+								{
+									"key": "brand",
+									"value": "VISA"
+								},
+								{
+									"key": "amount",
+									"value": "210"
+								},
+								{
+									"key": "cross-border",
+									"value": "false"
+								},
+								{
+									"key": "transactionSubType",
+									"value": "REGULAR"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transactions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Post Transactions\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const amountTransfer = pm.variables.replaceIn('{{$randomInt}}')",
+									"const amountMin = pm.environment.get(\"minAmoutValue\");",
+									"",
+									"if( amountTransfer < amountMin ){",
+									"    amountTransfer = pm.variables.replaceIn('{{$randomInt}}')",
+									"}",
+									"",
+									"pm.environment.set(\"amountTransferValue\", amountTransfer)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"source\": {{idPaymentInstrument}},\n  \"currency\": \"{{currencyValue}}\",\n  \"serviceCost\": 0,\n  \"amount\": {{amountTransferValue}},\n  \"description\": \"Prueba transfer to Kashtag {{destinationKashtagValue}}\",\n  \"notFastFundsAccepted\": false,\n  \"addToFavorite\": {{addToFavoriteValue}},\n  \"repeatTransfer\": false,\n  \"destinationUserId\": \"{{destinationUserIdValue}}\",\n  \"destinationKashtag\": \"{{destinationKashtagValue}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/transactions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Buy Kintos",
+			"item": [
+				{
+					"name": "Validate Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate Register Email\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"",
+									"    const response = JSON.parse(responseBody)",
+									"",
+									"    pm.environment.set(\"customerIdValue\", response.customer.customerId)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/kinto/users?email={{emailKintoValue}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"kinto",
+								"users"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "{{emailKintoValue}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Packages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validate Packages\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"",
+									"    const response      = JSON.parse(responseBody)",
+									"    const countPackage  = response.count()",
+									"",
+									"    const valuePackage = (max) => {",
+									"        return Math.floor(Math.random() * max)",
+									"    }",
+									"",
+									"    const idPackage = valuePackage(countPackage)",
+									"",
+									"    pm.environment.set(\"kintoPackIdValue\", response[idPackage].id)",
+									"    pm.environment.set(\"kintoPackTitleValue\", response[idPackage].title)",
+									"    //console.log(response.count())",
+									"})",
+									"",
+									"/*pm.test(\"\", () => {",
+									"    postman.setNextRequest('Pyament')",
+									"})*/"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/kinto/packages",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"kinto",
+								"packages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Charge Wallet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Post Charge Wallt\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerEmail\": \"{{emailKintoValue}}\",\n  \"customerId\": {{customerIdValue}},\n  \"kintoPackId\": {{kintoPackIdValue}},\n  \"serviceCost\": 0,\n  \"description\": \"{{kintoPackTitleValue}}\",\n  \"source\": {{idPaymentInstrument}},\n  \"currency\": \"{{currencyValue}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/kinto/charge-wallet",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"kinto",
+								"charge-wallet"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dynamic QR",
+			"item": [
+				{
+					"name": "Service Cost",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Amount Min All\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/service-cost?language={{languageValue}}&currency=ALL",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"service-cost"
+							],
+							"query": [
+								{
+									"key": "language",
+									"value": "{{languageValue}}"
+								},
+								{
+									"key": "currency",
+									"value": "ALL"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dynamic QA",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Generate Dynamic QR\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"",
+									"    const responde = JSON.parse(responseBody)",
+									"",
+									"    pm.environment.set(\"linkDynamicQrValue\", responde.link)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"\",\n  \"amount\": {{amountTransferValue}}\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/dynamic-qr/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"dynamic-qr",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete Account",
+			"item": [
+				{
+					"name": "List Option",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Search Option Delete\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/settings/screen-key/user-deletion",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"settings",
+								"screen-key",
+								"user-deletion"
+							]
+						},
+						"description": "Obtiene el lenguaje del token, en caso este seteado como español el lenguaje, la repuestas seran en español"
+					},
+					"response": [
+						{
+							"name": "Successfully response List settings example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJraWQiOiJla2NJMm43VHQ3cVlCeWtxSFwvODFNTkVZYkU3VjAzdXRUbEY1R2VWcTl5VT0iLCJhbGciOiJSUzI1NiJ9.eyJjdXN0b206Y291bnRyeSI6IkNSSSIsInN1YiI6IjdhYTc1MWMxLWU5MzktNDc1ZS04OWVhLWJjMmJlMTFmY2M1MSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0yLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMl9Gbk9YWXlESk8iLCJjdXN0b206dXNlcl9pZCI6IjEwMzUiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOnRydWUsImNvZ25pdG86dXNlcm5hbWUiOiJtYWNvcmRlcm8yIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibWFjb3JkZXJvMiIsImF1ZCI6IjE0MWl2cm1pZGZrZnR0bjJic2sxZ2htMHR0IiwiZXZlbnRfaWQiOiJhODczYTgxOS01M2NjLTQyMmYtYjRkZi1iZWY0ZDllNjY1N2QiLCJjdXN0b206bGFuZ3VhZ2UiOiJlcyIsInRva2VuX3VzZSI6ImlkIiwiY3VzdG9tOmN1cnJlbmN5IjoiQ1JDIiwiYXV0aF90aW1lIjoxNjU5OTk3NjkwLCJuYW1lIjoiTWFyY2lhbCIsInBob25lX251bWJlciI6Iis1MDY2NDQ0MDI2NSIsImV4cCI6MTY2MDAwMTI5MCwiaWF0IjoxNjU5OTk3NjkwLCJmYW1pbHlfbmFtZSI6IkNvcmRlcm8iLCJjdXN0b206Y29tcGxldGVkIjoiMSIsImVtYWlsIjoibWFyY2lhbC5jb3JkZXJvQGdtYWlsLmNvbSJ9.ScQiDDH_eNT_O-SkkxO1Z2rBE12lExU2l1vnCCoCGOGqHK0kXZ5uTxNvqFkZrMxamT07kih3UNpQMkAebpAcwWuI_CfklUh62Y5c5w-B2Ipt7NDtNULiRoXFKvL7rmbNs5P5AMuLdFad9fVGDA7FH948eV2eSCvG-IwVWdzVtwRM_rYLDbkTHzw7sZgI-DfURo3rQjwaEVSrpidTZDn0kUMzus9NfFTPPruDaLEn4Bi2NHtYQbS9HvaO-DF4fXIi22I8pfq4Ryx49bfBflfb0YwHmm8grZPyBSTSoTqo3uZTV2x8APY42e4yaNE5ce31qsXUIlNJV0GS7-FYf4NuuQ",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/settings/screen-key/user-deletion",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"settings",
+										"screen-key",
+										"user-deletion"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "203"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 08 Aug 2022 22:29:03 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "4e5108d7-7b7a-478b-b0eb-ce7287f2ff76"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "WkMnZFqNCYcFdYQ="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-62f18e2f-7866653062c33c671cd05c52;Sampled=0"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 31d0f5402937d8e69db50160c44f0fc4.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "MIA3-P4"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "5xk_wk0YXE8rs8XO1pQZU8XXJfggKlVnTPnI3cQmhxNfcICTQDiEtA=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"screenKey\": \"user-deletion\",\n    \"data\": {\n        \"options\": [\n            {\n                \"id\": 1,\n                \"reason\": \"Retención de dinero.\"\n            },\n            {\n                \"id\": 2,\n                \"reason\": \"No la uso.\"\n            },\n            {\n                \"id\": 3,\n                \"reason\": \"Aún no entiendo la aplicación.\"\n            },\n            {\n                \"id\": 4,\n                \"reason\": \"Otros.\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "User Deletion Whit Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Process Delete Account whit Data\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reasons\": [\n        {\n            \"id\": 1,\n            \"reason\": \"Retención de dinero.\"\n        },\n        {\n            \"id\": 2,\n            \"reason\": \"No la uso.\"\n        },\n        {\n            \"id\": 3,\n            \"reason\": \"Otros.\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/{{idKashtagValue}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								"{{idKashtagValue}}"
+							]
+						},
+						"description": "Dado los parametros reasons enviados, si el usuario no ha solicitado anteriomente eliminar la cuenta o ya han pasado 48h. Crear solicitud y enviar correo. Se almacena en la propiedad reasons de la tabla user_deletion_request el/los reason enviados"
+					},
+					"response": [
+						{
+							"name": "User deletion request successfully",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJraWQiOiJla2NJMm43VHQ3cVlCeWtxSFwvODFNTkVZYkU3VjAzdXRUbEY1R2VWcTl5VT0iLCJhbGciOiJSUzI1NiJ9.eyJjdXN0b206Y291bnRyeSI6IkNSSSIsInN1YiI6IjdhYTc1MWMxLWU5MzktNDc1ZS04OWVhLWJjMmJlMTFmY2M1MSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0yLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMl9Gbk9YWXlESk8iLCJjdXN0b206dXNlcl9pZCI6IjEwMzUiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOnRydWUsImNvZ25pdG86dXNlcm5hbWUiOiJtYWNvcmRlcm8yIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibWFjb3JkZXJvMiIsImF1ZCI6IjE0MWl2cm1pZGZrZnR0bjJic2sxZ2htMHR0IiwiZXZlbnRfaWQiOiIwMjE5NGNjZi1kN2M5LTRlZWEtYTllNC1jNzYwZGY0ZTNjYTYiLCJjdXN0b206bGFuZ3VhZ2UiOiJlcyIsInRva2VuX3VzZSI6ImlkIiwiY3VzdG9tOmN1cnJlbmN5IjoiQ1JDIiwiYXV0aF90aW1lIjoxNjU5OTg5Nzg2LCJuYW1lIjoiTWFyY2lhbCIsInBob25lX251bWJlciI6Iis1MDY2NDQ0MDI2NSIsImV4cCI6MTY1OTk5MzM4NiwiaWF0IjoxNjU5OTg5Nzg2LCJmYW1pbHlfbmFtZSI6IkNvcmRlcm8iLCJjdXN0b206Y29tcGxldGVkIjoiMSIsImVtYWlsIjoibWFyY2lhbC5jb3JkZXJvQGdtYWlsLmNvbSJ9.In_euFY0cGzcLvjChjwei-oWEF42Az6k66FUhuCWFK1UGFLim3j2qFAO-kmF_TBClGgZb7NCwaNzrotzB4EcQRBj10NVL42MYibdDPfNAD6IO5pnM8-cbda6ZzLP9Y9ysxPKIwI8qYRhJ7sdUGjpU5FCNfJ9ppp31Z51PJ6d2zRVsmAb7I8Pq4sEyrhSZHl3f7LCuC318pkwrr4G6A4bqO_8sgdgAdf7K6RGTXP3HEjEP8DFQ7YiCiBbnYPyOyKLR3ZWNTrrB8OXe5UtcQte7D41hGbS7rbCN7n-MYSaz6_fv4NE2NkTk897UKp3LfJMvcJi2sgCukJxtQxVVCfXHA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"reasons\": [\n        {\n            \"id\": 1,\n            \"reason\": \"Retención de dinero.\"\n        },\n        {\n            \"id\": 2,\n            \"reason\": \"No la uso.\"\n        }\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/1035",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"1035"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 08 Aug 2022 20:24:45 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "f1002139-ef86-46a1-8ea2-27026b332491"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "Wj6Z1E3eiYcFdIw="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-62f1710b-686cf9202a59070423a90978;Sampled=0"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 31d0f5402937d8e69db50160c44f0fc4.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "MIA3-P4"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "4HRYnwwyjPEXEOs9a90jJFOvyFa_ZHr18SVXvLsBXYi0zLxlxWzatA=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"httpStatus\": 200,\n    \"message\": \"User deletion request successfully created\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Delete Payment Instrument",
+			"item": [
+				{
+					"name": "Payment Instrument",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Delete Payment Instrument\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/payment-instruments/{{idPaymentInstrument}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"payment-instruments",
+								"{{idPaymentInstrument}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Change Kashtag",
+			"item": [
+				{
+					"name": "Verify Kashtag",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify Kashtag\", () => {",
+									"    //pm.response.to.have.status(200)",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"",
+									"    const response = JSON.parse(responseBody)",
+									"    const available = response.available",
+									"",
+									"    if( available == true ){",
+									"",
+									"        pm.environment.set(\"kashtagValue\", pm.variables.get(\"kashtagValue\")+1)",
+									"",
+									"    }",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/verify_kashtag?kashtag={{kashtagValue}}1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								"verify_kashtag"
+							],
+							"query": [
+								{
+									"key": "kashtag",
+									"value": "{{kashtagValue}}1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Kashtag",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Change Kashtag\", () => {",
+									"    //pm.response.to.have.status(200)",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							},
+							{
+								"key": "language",
+								"value": "{{languageValue}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"reservation\": true,\n  \"user\": {\n    \"kashtag\": \"{{kashtagValue}}\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Create User\", function () {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"",
+									"    const response = JSON.parse(responseBody)",
+									"",
+									"    pm.environment.set(\"idKashtagValue\", response.id)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Additional Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Search Additional Profile\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LogOut",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/x-amz-json-1.1",
+								"type": "text"
+							},
+							{
+								"key": "x-amz-target",
+								"value": "AWSCognitoIdentityProviderService.GlobalSignOut",
+								"type": "text"
+							},
+							{
+								"key": "x-amz-user-agent",
+								"value": "aws-amplify/5.0.4 react-native",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"AccessToken\": \"{{accessTokenValue}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cognitoUrl}}",
+							"host": [
+								"{{cognitoUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Forgot Password",
+			"item": [
+				{
+					"name": "Send Kashtag",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Send Change Kashtag\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"",
+									"    pm.environment.set(\"flagPasswordValue\", 0)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/verify-attribute?key=kashtag&value={{kashtagValue}}&valueLength=4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								"verify-attribute"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "kashtag"
+								},
+								{
+									"key": "value",
+									"value": "{{kashtagValue}}"
+								},
+								{
+									"key": "valueLength",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Phone",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Send Change Phone\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"",
+									"    pm.environment.set(\"flagPasswordValue\", 1)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/verify-attribute?key=phoneNumber&value={{phoneValue}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								"verify-attribute"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "phoneNumber"
+								},
+								{
+									"key": "value",
+									"value": "{{phoneValue}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend Code",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Resend Code Verification\", () => {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"",
+									"    const getVerificationCode = {",
+									"    url: `https://api-qa.adios.cash/mock/users/verification-code?phone=${pm.variables.get(\"phoneValue\")}`,",
+									"    method: 'GET',",
+									"    header: {",
+									"        'Content-Type': 'application/json',",
+									"        'x-api-key': 'msAjtztf447bRcP6TXlXK8X5pjCgo8kN8iwL60cE'",
+									"        }",
+									"    }",
+									"",
+									"    pm.sendRequest(getVerificationCode, (err, response) => {",
+									"",
+									"        if(err != null) {",
+									"",
+									"            console.log(err)",
+									"",
+									"        } else {",
+									"",
+									"        const data = response.json()",
+									"        //pm.globals.set(\"codeVerification\", data.code)",
+									"        //pm.variables.set(\"codeVerification\", data.code)",
+									"        pm.environment.set(\"codeVerification\", data.code)",
+									"        ",
+									"        }",
+									"    })",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{he_unauthorized-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"phone\": \"+{{phoneValue}}\",\n  \"iswpmessage\": \"true\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/resend-code",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								"resend-code"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recover Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Change New Password\", function () {",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if( pm.variables.get(\"flagPasswordValue\") == 1 ){",
+									"",
+									"    pm.environment.set(\"passwordValue\", \"Namu2022\")",
+									"",
+									"} else {",
+									"",
+									"    pm.environment.set(\"passwordValue\", \"abJOTA04\")",
+									"",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{he_authorized-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userName\": \"{{kashtagValue}}\",\n  \"code\": \"{{codeVerification}}\",\n  \"password\": \"{{passwordValue}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{stage}}/users/recover-password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{stage}}",
+								"users",
+								"recover-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    //pm.response.to.have.status(200)",
+									"    pm.expect(pm.response.code).to.eql(200)",
+									"",
+									"    const response = JSON.parse(responseBody)",
+									"",
+									"    const dataResult = response.AuthenticationResult",
+									"",
+									"    const accessToken = dataResult.AccessToken",
+									"    const dataIdToken = dataResult.IdToken",
+									"    const dataType = dataResult.TokenType",
+									"",
+									"    pm.environment.set(\"accessTokenValue\", accessToken)",
+									"    pm.environment.set(`token${ dataType }`, dataIdToken)",
+									"",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-amz-json-1.1",
+								"type": "text"
+							},
+							{
+								"key": "X-Amz-Target",
+								"value": "AWSCognitoIdentityProviderService.InitiateAuth",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"AuthFlow\": \"USER_PASSWORD_AUTH\",\n    \"AuthParameters\": {\n        \"PASSWORD\": \"{{passwordValue}}\",\n        \"USERNAME\": \"{{kashtagValue}}\"\n    },\n    \"ClientId\": \"{{cognitoClientId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cognitoUrl}}",
+							"host": [
+								"{{cognitoUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{tokenBearer}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
