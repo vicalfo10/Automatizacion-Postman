@@ -1,55 +1,185 @@
 {
   "item": [
     {
-      "id": "da6ec15b-1e8f-461f-8ac1-5b5d25e11bd2",
-      "name": "Terms Conditions",
+      "id": "fdd12aa2-491c-47f6-b8f3-c6e521cb701b",
+      "name": "Login",
       "request": {
         "url": {
-          "path": [
-            "{{stage}}",
-            "documents"
-          ],
           "host": [
-            "{{baseUrl}}"
+            "{{cognitoUrl}}"
           ],
-          "query": [
-            {
-              "key": "type",
-              "value": "TERMS_CONDITIONS"
-            },
-            {
-              "key": "language",
-              "value": "{{languageValue}}"
-            },
-            {
-              "key": "country",
-              "value": "{{countryValue}}"
-            }
-          ],
+          "query": [],
           "variable": []
         },
-        "method": "GET"
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-amz-json-1.1"
+          },
+          {
+            "key": "X-Amz-Target",
+            "value": "AWSCognitoIdentityProviderService.InitiateAuth"
+          }
+        ],
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"AuthFlow\": \"USER_PASSWORD_AUTH\",\n    \"AuthParameters\": {\n        \"PASSWORD\": \"{{passwordValue}}\",\n        \"USERNAME\": \"{{kashtagValue}}\"\n    },\n    \"ClientId\": \"{{cognitoClientId}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
       },
       "response": [],
       "event": [
         {
           "listen": "test",
           "script": {
-            "id": "e895788d-9ddc-45b1-acd6-ce366a5334dd",
+            "id": "89dea97f-044e-494d-8232-d2d87b7790a7",
             "type": "text/javascript",
             "exec": [
-              "pm.test(\"Get Termis and Conditions\", () => {",
-              "    pm.expect(pm.response.code).to.eql(200)",
-              "})"
+              "pm.test( \"Login Origin Kashtag\", () => {",
+              "    pm.expect( pm.response.code ).to.eql( 200 )",
+              "",
+              "    const response = JSON.parse( responseBody )",
+              "",
+              "    const dataResult = response.AuthenticationResult",
+              "",
+              "    const accessToken = dataResult.AccessToken",
+              "    const dataIdToken = dataResult.IdToken",
+              "    const dataType    = dataResult.TokenType",
+              "",
+              "    pm.environment.set( \"accessTokenValue\", accessToken )",
+              "    pm.environment.set( `token${ dataType }`, dataIdToken )",
+              "",
+              "})",
+              "",
+              ""
             ]
           }
+        }
+      ]
+    },
+    {
+      "id": "1e0145ba-3f1d-46a9-bdd2-99ca4e816ea5",
+      "name": "Login",
+      "request": {
+        "url": {
+          "host": [
+            "{{cognitoUrl}}"
+          ],
+          "query": [],
+          "variable": []
         },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-amz-json-1.1"
+          },
+          {
+            "key": "X-Amz-Target",
+            "value": "AWSCognitoIdentityProviderService.InitiateAuth"
+          }
+        ],
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"AuthFlow\": \"USER_PASSWORD_AUTH\",\n    \"AuthParameters\": {\n        \"PASSWORD\": \"{{passwordValue}}\",\n        \"USERNAME\": \"{{kashtagValue}}\"\n    },\n    \"ClientId\": \"{{cognitoClientId}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
         {
-          "listen": "prerequest",
+          "listen": "test",
           "script": {
-            "id": "ea40d754-3954-4f7d-bcab-e9a235fe934a",
+            "id": "df66cc3e-4ad5-4b04-a0a2-8cd1e27d2feb",
             "type": "text/javascript",
             "exec": [
+              "pm.test(\"Status code is 200\", () => {",
+              "    //pm.response.to.have.status(200)",
+              "    pm.expect(pm.response.code).to.eql(200)",
+              "",
+              "    const response = JSON.parse(responseBody)",
+              "",
+              "    const dataResult = response.AuthenticationResult",
+              "",
+              "    const accessToken = dataResult.AccessToken",
+              "    const dataIdToken = dataResult.IdToken",
+              "    const dataType = dataResult.TokenType",
+              "",
+              "    pm.environment.set(\"accessTokenValue\", accessToken)",
+              "    pm.environment.set(`token${ dataType }`, dataIdToken)",
+              "",
+              "})",
+              "",
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "35002c6d-8d9a-4e34-adef-6874c1c62a11",
+      "name": "Login",
+      "request": {
+        "url": {
+          "host": [
+            "{{cognitoUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-amz-json-1.1"
+          },
+          {
+            "key": "X-Amz-Target",
+            "value": "AWSCognitoIdentityProviderService.InitiateAuth"
+          }
+        ],
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"AuthFlow\": \"USER_PASSWORD_AUTH\",\n    \"AuthParameters\": {\n        \"PASSWORD\": \"{{destinationPasswordValue}}\",\n        \"USERNAME\": \"{{destinationKashtagValue}}\"\n    },\n    \"ClientId\": \"{{cognitoClientId}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "9f0f43fa-35f8-4f1b-912b-3798fcfc6e90",
+            "type": "text/javascript",
+            "exec": [
+              "pm.test( \"Login Destination Kashtag\", () => {",
+              "    pm.expect( pm.response.code ).to.eql( 200 )",
+              "",
+              "    const response = JSON.parse( responseBody )",
+              "",
+              "    const dataResult    = response.AuthenticationResult",
+              "    const accessToken   = dataResult.AccessToken",
+              "    const dataIdToken   = dataResult.IdToken",
+              "    const dataType      = dataResult.TokenType",
+              "",
+              "    pm.environment.set( \"accessTokenValue\", accessToken )",
+              "    pm.environment.set( `token${ dataType }`, dataIdToken )",
+              "",
+              "})",
+              "",
               ""
             ]
           }
@@ -72,7 +202,7 @@
     ]
   },
   "info": {
-    "_postman_id": "d8870791-82a4-44ee-81cd-666b02d609e8",
+    "_postman_id": "0184e308-e53d-475f-8042-0cf009917ac3",
     "name": "Api-Kash-QA-Created",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   }

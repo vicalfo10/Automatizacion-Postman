@@ -75,7 +75,7 @@ const subMenu = async() => {
                 },
                 {
                     value: 4,
-                    name: `Ingresar Teléfono`
+                    name: `Teléfono Origen`
                 },
                 {
                     value: 5,
@@ -84,6 +84,10 @@ const subMenu = async() => {
                 {
                     value: 6,
                     name: `Registrar Tarjeta`
+                },
+                {
+                    value: 7,
+                    name: `Teléfono Transferencia a Tarjeta`
                 },
                 {
                     value: 0,
@@ -108,15 +112,19 @@ const subMenuCard = async() => {
             choices: [
                 {
                     value: 1,
-                    name: `Tarjeta Uno`
+                    name: `Tarjeta Origen Uno`
                 },
                 {
                     value: 2,
-                    name: `Tarjeta Dos`
+                    name: `Tarjeta Origen Dos`
                 },
                 {
                     value: 3,
-                    name: `Tarjeta Tres`
+                    name: `Tarjeta Origen Tres`
+                },
+                {
+                    value: 4,
+                    name: `Transferencia a Tarjeta`
                 },
                 {
                     value: 0,
@@ -277,7 +285,7 @@ const readInput = async( message, opt ) => {
                     } else if( isNaN( value ) ) {
                         return 'Solo se aceptan numeros.'
                     } else if( value.length !== 11 ) {
-                        return 'Número teléfono igual 8 digitos.'
+                        return 'Número teléfono: código de area + 8 digitos.'
                     }
                     return true
                 }
@@ -326,6 +334,29 @@ const readInput = async( message, opt ) => {
 
         const { card } = await inquirer.prompt( question )
         return card
+
+    } else if ( opt == 7 ) {
+
+        const question = [
+            {
+                type: 'input',
+                name: 'phoneTransfer',
+                message,
+                validate( value ) {
+                    if( value.length === 0 ) {
+                        return 'Por favor ingrese un valor.'
+                    } else if( isNaN( value ) ) {
+                        return 'Solo se aceptan numeros.'
+                    } else if( value.length !== 11 ) {
+                        return 'Número teléfono: código de area + 8 digitos.'
+                    }
+                    return true
+                }
+            }
+        ]
+
+        const { phoneTransfer } = await inquirer.prompt( question )
+        return phoneTransfer
     }
 }
 
@@ -337,13 +368,18 @@ const dataCollection = async( valueCollection ) => {
     const readCollection = await fs.readFileSync( process.env.PATHCOLLECTION, { encoding: 'utf-8' } )
     const data = JSON.parse( readCollection )
 
-    for ( let i=0; i < data.item.length; i++ ) {
+    for ( let y=0; y < data.item.length; y++ ) {
 
-        listNameCollection.push( ` ${ data.item[i].name } `.red )
+        listNameCollection.push( ` ${ data.item[y].name } `.red )
 
-        for ( let x=0; x < data.item[i].item.length; x++ ) {
+        for ( let i=0; i < data.item[y].item.length; i++ ) {
 
-            listNameCollection.push( ' |__' + ' ' + data.item[i].item[x].request.method + ' - ' + data.item[i].item[x].name )
+            listNameCollection.push( ' |___' + ` ${ data.item[y].item[i].name } `.red )
+    
+            for ( let x=0; x < data.item[y].item[i].item.length; x++ ) {
+
+                listNameCollection.push( ' |_____' + ' ' + data.item[y].item[i].item[x].request.method + ' - ' + data.item[y].item[i].item[x].name )
+            }
         }
     }
 

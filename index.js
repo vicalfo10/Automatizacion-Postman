@@ -48,27 +48,27 @@ const main = async() => {
 
                         case 1:
 
-                            data.stage = await readInput('Stage: ', optSubMenu)
+                            data.stage = await readInput( 'Stage: ', optSubMenu )
 
                             break
                         case 2:
 
-                            data.identification = await readInput('Identificación: ', optSubMenu)
+                            data.identification = await readInput( 'Identificación: ', optSubMenu )
 
                             break
                         case 3:
 
-                            data.kashtag = await readInput('Kashtag: ', optSubMenu)
+                            data.kashtag = await readInput( 'Kashtag: ', optSubMenu )
     
                             break
                         case 4:
 
-                            data.phone = await readInput('Teléfono: ', optSubMenu)
+                            data.phone = await readInput( 'Teléfono: ', optSubMenu )
 
                             break
                         case 5:
 
-                            data.password = await readInput('Contraseña: ', optSubMenu)
+                            data.password = await readInput( 'Contraseña: ', optSubMenu )
 
                             break
                         case 6:
@@ -93,12 +93,22 @@ const main = async() => {
                                         data.card3 = await cardGenerator()
                                     
                                         break
+                                    case 4:
+
+                                        data.card4 = await cardGenerator()
+                                        
+                                        break
                                 }
 
                                 if (optSubMenuCard !== 0) await pausa()
 
                             } while ( optSubMenuCard !== 0 )
 
+                            break
+                        case 7:
+
+                            data.phoneTransfer = await readInput( 'Teléfono: ', optSubMenu )
+    
                             break
                     }
 
