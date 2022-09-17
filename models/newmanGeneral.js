@@ -8,18 +8,24 @@ const generalExecution = async( values ) => {
     let readEnvironment = fs.readFileSync( process.env.PATHENVIRONMENT, { encoding: 'utf-8' } )
     let data = JSON.parse( readEnvironment )
 
-    //console.log( 'HOLA: ' + data.values[4].key + ' -- ' + data.values[6].key + ' -- ' + data.values[9].key + ' -- ' + data.values[10].key + ' -- ' + data.values[12].key + ' -- ' + data.values[27].key + ' -- ' + data.values[28].key + ' -- ' + data.values[29].key + ' -- ' + data.values[30].key + ' -- ' + data.values[61].key )
+    /*console.log( 'HOLA SignUP: ' + data.values[5].key + ' -- ' + data.values[7].key + ' -- ' + data.values[10].key + ' -- ' + data.values[11].key + ' -- ' + data.values[14].key + ' -- ' + data.values[30].key + ' -- ' + data.values[31].key + ' -- ' + data.values[32].key + ' -- ' + data.values[33].key + ' -- ' + data.values[67].key )
+    console.log( 'HOLA PreSignUP: ' + data.values[75].key + ' -- ' + data.values[76].key + ' -- ' + data.values[78].key + ' -- ' + data.values[79].key )
+    console.log( 'DATA: ' +  values.stage + ' - ' + values.identificationPre + ' - ' + values.kashtagPre + ' - ' + values.phonePre + ' - ' + values.passwordPre)*/
 
-    data.values[4].value    = values.stage
-    data.values[6].value    = values.identification
-    data.values[9].value    = values.kashtag
-    data.values[10].value   = values.phone
-    data.values[12].value   = values.password
-    data.values[27].value   = values.card1
-    data.values[28].value   = values.card2
-    data.values[29].value   = values.card3
-    data.values[30].value   = values.card4
-    data.values[61].value   = values.phoneTransfer
+    data.values[5].value    = values.stage
+    data.values[7].value    = values.identification
+    data.values[10].value   = values.kashtag
+    data.values[11].value   = values.phone
+    data.values[14].value   = values.password
+    data.values[30].value   = values.card1
+    data.values[31].value   = values.card2
+    data.values[32].value   = values.card3
+    data.values[33].value   = values.card4
+    data.values[67].value   = values.phoneTransfer
+    data.values[75].value   = values.identificationPre
+    data.values[76].value   = values.kashtagPre
+    data.values[78].value   = values.phonePre
+    data.values[79].value   = values.passwordPre
 
     await fs.writeFileSync( process.env.PATHENVIRONMENT, JSON.stringify( data, null, 2 ) )
 

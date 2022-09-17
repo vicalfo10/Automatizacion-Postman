@@ -328,7 +328,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"phone\": \"+{{phoneValue}}\",\n  \"kashtag\": \"{{kashtagValue}}\",\n  \"iswpmessage\": \"false\",\n  \"email\": \"{{emailValue}}\",\n  \"password\": \"{{passwordValue}}\",\n  \"termsConditionsAndPrivacyPolicy\": true,\n  \"firstName\": \"{{firstNameValue}}\",\n  \"lastName\": \"{{lastNameValue}}\",\n  \"nationality\": \"{{nationalityValue}}\",\n  \"region\": \"CR-H\",\n  \"subregion\": \"San Rafael\",\n  \"exactAddress\": \"{{addressValue}}\",\n  \"identificationType\": \"{{identificationType}}\",\n  \"identification\": \"{{identificationValue}}\",\n  \"language\": \"{{languageValue}}\",\n  \"country\": \"{{countryValue}}\",\n  \"username\": \"{{uuid4}}\"\n}",
+									"raw": "{\n    \"phone\": \"+{{phoneValue}}\",\n    \"kashtag\": \"{{kashtagValue}}\",\n    \"iswpmessage\": \"false\",\n    \"email\": \"{{emailValue}}\",\n    \"password\": \"{{passwordValue}}\",\n    \"termsConditionsAndPrivacyPolicy\": true,\n    \"firstName\": \"{{firstNameValue}}\",\n    \"lastName\": \"{{lastNameValue}}\",\n    \"nationality\": \"{{nationalityValue}}\",\n    \"region\": \"CR-H\",\n    \"subregion\": \"San Rafael\",\n    \"exactAddress\": \"{{addressValue}}\",\n    \"identificationType\": \"{{identificationType}}\",\n    \"identification\": \"{{identificationValue}}\",\n    \"language\": \"{{languageValue}}\",\n    \"country\": \"{{countryValue}}\",\n    \"username\": \"{{uuid4}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -483,7 +483,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"kashtag\": \"{{kashtagValue}}\",\n  \"code\": {{codeVerification}},\n  \"identityData\": {\n    \"username\": \"{{uuid4}}\",\n    \"email\": \"{{emailValue}}\",\n    \"password\": \"{{passwordValue}}\",\n    \"termsConditionsAndPrivacyPolicy\": true,\n    \"firstName\": \"{{firstNameValue}}\",\n    \"lastName\": \"{{lastNameValue}}\",\n    \"nationality\": \"{{nationalityValue}}\",\n    \"region\": \"CR-A\",\n    \"subregion\": \"Grecia\",\n    \"exactAddress\": \"{{addressValue}}\",\n    \"identificationType\": \"{{identificationType}}\",\n    \"identification\": \"{{identificationValue}}\",\n    \"kashtag\": \"{{kashtagValue}}\",\n    \"language\": \"{{languageValue}}\",\n    \"country\": \"{{countryValue}}\",\n    \"phone\": \"+{{phoneValue}}\",\n    \"idType\": \"{{identificationType}}\"\n  },\n  \"username\": \"{{uuid4}}\"\n}"
+									"raw": "{\n    \"kashtag\": \"{{kashtagValue}}\",\n    \"code\": {{codeVerification}},\n    \"identityData\": {\n        \"username\": \"{{uuid4}}\",\n        \"email\": \"{{emailValue}}\",\n        \"password\": \"{{passwordValue}}\",\n        \"termsConditionsAndPrivacyPolicy\": true,\n        \"firstName\": \"{{firstNameValue}}\",\n        \"lastName\": \"{{lastNameValue}}\",\n        \"nationality\": \"{{nationalityValue}}\",\n        \"region\": \"CR-A\",\n        \"subregion\": \"Grecia\",\n        \"exactAddress\": \"{{addressValue}}\",\n        \"identificationType\": \"{{identificationType}}\",\n        \"identification\": \"{{identificationValue}}\",\n        \"kashtag\": \"{{kashtagValue}}\",\n        \"language\": \"{{languageValue}}\",\n        \"country\": \"{{countryValue}}\",\n        \"phone\": \"+{{phoneValue}}\",\n        \"idType\": \"{{identificationType}}\"\n    },\n    \"username\": \"{{uuid4}}\"\n}"
 								},
 								"url": {
 									"raw": "{{baseUrl}}/{{stage}}/users/confirm",
@@ -611,8 +611,320 @@
 					]
 				},
 				{
+					"name": "More",
+					"item": [
+						{
+							"name": "Awaiting Request Status",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Requirements Status\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/awaiting-request/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"awaiting-request",
+										"status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Kyc Status",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"KYC Status\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 422 )",
+											"",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/kyc/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"kyc",
+										"status"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Personal Information",
 					"item": [
+						{
+							"name": "Users Mfa Status",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"User MFA Status\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/users/mfa/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"users",
+										"mfa",
+										"status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Users Exist Email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Confirm Exist Email\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 422 )",
+											"",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\": \"SEND_CODE\",\n    \"email\": \"{{emailMfaUserValue}}\",\n    \"isForEmailConfirmation\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/users/email",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"users",
+										"email"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Users Email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Confirm Email\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\": \"SEND_CODE\",\n    \"email\": \"{{emailValue}}\",\n    \"isForEmailConfirmation\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/users/email",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"users",
+										"email"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Error Code Email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Invalid Code Email\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 422 )",
+											"",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\": \"VERIFY_CODE\",\n    \"email\": \"{{emailValue}}\",\n    \"verificationCode\": 1234\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/users/email",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"users",
+										"email"
+									]
+								}
+							},
+							"response": []
+						},
 						{
 							"name": "Additional Profile",
 							"event": [
@@ -1024,7 +1336,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"type\": \"PAYMENT_CARD\",\n  \"currency\": \"{{currencyValue}}\",\n  \"name\": \"{{firstNameValue}}\",\n  \"number\": \"{{oneNumberCardValue}}\",\n  \"security_code\": \"258\",\n  \"expiration_month\": \"10\",\n  \"expiration_year\": \"2025\",\n  \"address\": {\n    \"line1\": \"Guacimo\",\n    \"city\": \"CR-L\",\n    \"country\": \"{{countryValue}}\",\n    \"postal_code\": \"10903\"\n  }\n}",
+									"raw": "{\n    \"type\": \"PAYMENT_CARD\",\n    \"currency\": \"{{currencyValue}}\",\n    \"name\": \"{{firstNameValue}}\",\n    \"number\": \"{{oneNumberCardValue}}\",\n    \"security_code\": \"258\",\n    \"expiration_month\": \"10\",\n    \"expiration_year\": \"2025\",\n    \"address\": {\n        \"line1\": \"Guacimo\",\n        \"city\": \"CR-L\",\n        \"country\": \"{{countryValue}}\",\n        \"postal_code\": \"10903\"\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1100,7 +1412,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"token\": \"{{cardTokenValue}}\",\n  \"fingerprint\": \"{{fingerprintValue}}\",\n  \"country\": \"{{countryValue}}\",\n  \"alias\": \"{{aliasValue}}\"\n}",
+									"raw": "{\n    \"token\": \"{{cardTokenValue}}\",\n    \"fingerprint\": \"{{fingerprintValue}}\",\n    \"country\": \"{{countryValue}}\",\n    \"alias\": \"{{aliasValue}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3175,6 +3487,476 @@
 					]
 				},
 				{
+					"name": "Transfer Between Accounts",
+					"item": [
+						{
+							"name": "Service Cost Min Amount",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Get Service Cost Min Amount\", () => {",
+											"    pm.expect(pm.response.code).to.eql(200)",
+											"",
+											"    const response = JSON.parse(responseBody)",
+											"",
+											"    pm.environment.set(\"minAmoutValue\", response.minAmount)",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/service-cost/min-amount?country={{countryValue}}&isCrossBorder=false",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"service-cost",
+										"min-amount"
+									],
+									"query": [
+										{
+											"key": "country",
+											"value": "{{countryValue}}"
+										},
+										{
+											"key": "isCrossBorder",
+											"value": "false"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Payment Instrument",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Get Payment Instrument\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"    const response = JSON.parse( responseBody )",
+											"",
+											"    const idPaymentInstrument = response.paymentInstruments[0].id",
+											"",
+											"    pm.environment.set( \"idPaymentInstrument\", idPaymentInstrument )",
+											"})",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/payment-instruments",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"payment-instruments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Token Finix",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Post Token Payment Instrument Finix\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"    const response = JSON.parse( responseBody )",
+											"",
+											"    pm.environment.set( \"twoCardTokenValue\", response.id )",
+											"    pm.environment.set( \"twoFingerprintValue\", response.fingerprint )",
+											"})",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\": \"PAYMENT_CARD\",\n    \"currency\": \"{{currencyValue}}\",\n    \"name\": \"{{firstNameValue}} Two\",\n    \"number\": \"{{twoNumberCardValue}}\",\n    \"address\": {\n        \"country\": \"{{countryValue}}\",\n        \"line1\": \"Naranjo\",\n        \"city\": \"CR-A\",\n        \"postal_code\": \"10903\"\n    },\n    \"expiration_month\": \"10\",\n    \"expiration_year\": \"2025\",\n    \"security_code\": \"852\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/mock/finix/applications/{{urlMockKeyValue}}/tokens",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"mock",
+										"finix",
+										"applications",
+										"{{urlMockKeyValue}}",
+										"tokens"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Payment Instrument",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"let letter = Math.random().toString(36).replace(/[^a-z]+/g, '').substring(2, 6)",
+											"",
+											"let alias = letter.toLocaleUpperCase()",
+											"",
+											"pm.environment.set( \"aliasValue\", alias )"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Post Payment Instrument\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"    const response = JSON.parse( responseBody )",
+											"",
+											"    pm.environment.set( \"cardBrandValue\", response.brand )",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									},
+									{
+										"key": "app-version",
+										"value": "2.12.0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"token\": \"{{twoCardTokenValue}}\",\n  \"fingerprint\": \"{{twoFingerprintValue}}\",\n  \"country\": \"{{countryValue}}\",\n  \"alias\": \"{{aliasValue}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/payment-instruments",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"payment-instruments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Payment Instrument",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Get Payment Instrument\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"    const response = JSON.parse( responseBody )",
+											"",
+											"    const twoIdPaymentInstrument = response.paymentInstruments[0].id",
+											"    const oneIdPaymentInstrument = response.paymentInstruments[1].id",
+											"",
+											"    pm.environment.set( \"twoIdPaymentInstrument\", twoIdPaymentInstrument )",
+											"    pm.environment.set( \"idPaymentInstrument\", oneIdPaymentInstrument )",
+											"})",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/payment-instruments",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"payment-instruments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Service Cost",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Get Service Cost\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/service-cost?country={{countryValue}}&brand={{cardBrandValue}}&amount={{amountTransferValue}}&cross-border=false&transactionSubType=MYSELF",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"service-cost"
+									],
+									"query": [
+										{
+											"key": "country",
+											"value": "{{countryValue}}"
+										},
+										{
+											"key": "brand",
+											"value": "{{cardBrandValue}}"
+										},
+										{
+											"key": "amount",
+											"value": "{{amountTransferValue}}"
+										},
+										{
+											"key": "cross-border",
+											"value": "false"
+										},
+										{
+											"key": "transactionSubType",
+											"value": "MYSELF"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Transactions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Transactions Between Accounts\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const dataValue = Math.floor( Math.random() * (500 - 100) + 100 )",
+											"",
+											"pm.environment.set( \"amountTransferValue\", dataValue )"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"source\": {{idPaymentInstrument}},\n    \"currency\": \"{{currencyValue}}\",\n    \"serviceCost\": 0,\n    \"amount\": {{amountTransferValue}},\n    \"description\": \"Test transfer between accounts\",\n    \"notFastFundsAccepted\": false,\n    \"addToFavorite\": {{addToFavoriteValue}},\n    \"repeatTransfer\": false,\n    \"operation\": \"TO_MYSELF\",\n    \"destinationUserId\": {{idKashtagValue}},\n    \"destination\": {{twoIdPaymentInstrument}}\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/transactions",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"transactions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Voucher",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Voucher Transfer Between Accounts\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query getTransactions {\n  transactions(limit: 3, transferNextToken: \"null\", transferRequestNextToken: \"null\", filter: {}) {\n    transferNextToken\n    transferRequestNextToken\n    transferHasMorePages\n    transferRequestHasMorePages\n    items {\n      belongsTo\n      createdAt\n      amount\n      behavior\n      code\n      currency\n      description\n      type\n      requestState\n      requestDetails {\n        id\n        name\n        kashtag\n        state\n        amount\n      }\n      transactionDetails {\n        remittanceAmount\n        subType\n        remittanceCurrency\n        remittanceCountry\n      }\n      involved {\n        id\n        name\n        kashtag\n        transactionType\n        destination\n        destinationName\n        destinationKashtag\n        destinationCurrency\n        destinationAmount\n        service {\n          reference\n          company\n          service\n          billOwner\n          dueDate\n          payingService\n          receipt\n          referenceCode\n        }\n        card\n      }\n      kashtag\n      card\n      reversal\n      fee\n      favorite\n    }\n  }\n}\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{appsynUrl}}",
+									"host": [
+										"{{appsynUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Whatsapp",
 					"item": [
 						{
@@ -3435,6 +4217,275 @@
 										"{{stage}}",
 										"kinto",
 										"charge-wallet"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Transfer to Other Countries",
+					"item": [
+						{
+							"name": "Default Card Two",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Default Card Tarjet Two\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"preset\": \"both\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/payment-instruments/{{twoIdPaymentInstrument}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"payment-instruments",
+										"{{twoIdPaymentInstrument}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Micro Deposits",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Cross Border Micro Deposit\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"paymentInstrumentId\": {{twoIdPaymentInstrument}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/micro-deposits",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"micro-deposits"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Micro Deposits",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Amount Error Micro Deposit\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 402 )",
+											"",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"amount\": 43.95,\n    \"paymentInstrumentId\": {{twoIdPaymentInstrument}},\n    \"isManual\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/micro-deposits",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"micro-deposits"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Awaiting Request Status",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Requirements Status\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/awaiting-request/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"awaiting-request",
+										"status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Default Card One",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Default Card Tarjet One\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"preset\": \"both\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/payment-instruments/{{idPaymentInstrument}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"payment-instruments",
+										"{{idPaymentInstrument}}"
 									]
 								}
 							},
@@ -3821,6 +4872,55 @@
 									"body": "{\n    \"httpStatus\": 200,\n    \"message\": \"User deletion request successfully created\"\n}"
 								}
 							]
+						}
+					]
+				},
+				{
+					"name": "Delete Payment Instrument",
+					"item": [
+						{
+							"name": "Payment Instrument",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Delete Payment Instrument\", () => {",
+											"    pm.expect(pm.response.code).to.eql(200)",
+											"    ",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/payment-instruments/{{twoIdPaymentInstrument}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"payment-instruments",
+										"{{twoIdPaymentInstrument}}"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -5460,6 +6560,840 @@
 									"path": [
 										"{{stage}}",
 										"transactions"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Have Kash Code",
+			"item": [
+				{
+					"name": "PreSignUp",
+					"item": [
+						{
+							"name": "Token Finix",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Token Payment Instrument PreSingUp\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"    const response = JSON.parse( responseBody )",
+											"",
+											"    pm.environment.set( \"cardTokenPreSingUpValue\", response.id )",
+											"    pm.environment.set( \"fingerprintPreSingUpValue\", response.fingerprint )",
+											"})",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const email     = pm.variables.replaceIn( '{{$randomEmail}}' )",
+											"const firstName = pm.variables.replaceIn( '{{$randomFirstName}}' )",
+											"const lastName  = pm.variables.replaceIn( '{{$randomLastName}}' )",
+											"",
+											"pm.environment.set( \"emailPreSingUpValue\", email.toLocaleLowerCase() )",
+											"pm.environment.set( \"namePreSingUpValue\", firstName )",
+											"pm.environment.set( \"lastPreSingUpValue\", lastName )"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\": \"PAYMENT_CARD\",\n    \"currency\": \"{{currencyValue}}\",\n    \"name\": \"{{firstNameValue}} One\",\n    \"number\": \"{{threeNumberCardValue}}\",\n    \"security_code\": \"258\",\n    \"expiration_month\": \"10\",\n    \"expiration_year\": \"2025\",\n    \"address\": {\n        \"line1\": \"Guacimo\",\n        \"city\": \"CR-L\",\n        \"country\": \"{{countryValue}}\",\n        \"postal_code\": \"10903\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/mock/finix/applications/{{urlMockKeyValue}}/tokens",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"mock",
+										"finix",
+										"applications",
+										"{{urlMockKeyValue}}",
+										"tokens"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create User Code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Generate Code Banca Movil\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"    const response = JSON.parse( responseBody )",
+											"",
+											"    pm.environment.set( \"preSignUpCodeVelue\", response.code )",
+											"",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{he_bancaMovil-api-key}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user\": {\n        \"email\": \"{{emailPreSingUpValue}}\",\n        \"country\": \"{{countryValue}}\",\n        \"firstName\": \"{{namePreSingUpValue}} {{lastPreSingUpValue}}\",\n        \"phoneNumber\": {\n            \"number\": \"{{phonePreSignUpValue}}\",\n            \"countryCode\": \"+506\"\n        }\n    },\n    \"card\": {\n        \"token\": \"{{cardTokenPreSingUpValue}}\",\n        \"fingerprint\": \"{{fingerprintPreSingUpValue}}\"\n    }\n}"
+								},
+								"url": {
+									"raw": "{{preSignUpUrl}}/users",
+									"host": [
+										"{{preSignUpUrl}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify Kashtag",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Users Verify Kashtag\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"    ",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/users/verify_kashtag?kashtag={{preSignUpCodeVelue}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"users",
+										"verify_kashtag"
+									],
+									"query": [
+										{
+											"key": "kashtag",
+											"value": "{{preSignUpCodeVelue}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pre Signup Validate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Pre SignUp Validate\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"    const response = JSON.parse( responseBody )",
+											"",
+											"    pm.environment.set( \"countryCodeValue\", response[0].countryCode )",
+											"    pm.environment.set( \"cratedAtValue\", response[0].createdAt )",
+											"    ",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/pre-signup/{{preSignUpCodeVelue}}/validate",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"pre-signup",
+										"{{preSignUpCodeVelue}}",
+										"validate"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify Attribute",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Validate Identification PreSignUp\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"    ",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/users/verify-attribute?type={{identificationType}}&value={{identificationPreSignUpValue}}&country={{countryValue}}&key=identification",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"users",
+										"verify-attribute"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "{{identificationType}}"
+										},
+										{
+											"key": "value",
+											"value": "{{identificationPreSignUpValue}}"
+										},
+										{
+											"key": "country",
+											"value": "{{countryValue}}"
+										},
+										{
+											"key": "key",
+											"value": "identification"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify Kashtag",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Validate Kashtag PreSignUp\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"    ",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/users/verify_kashtag?kashtag={{kashtagPreSignUpValue}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"users",
+										"verify_kashtag"
+									],
+									"query": [
+										{
+											"key": "kashtag",
+											"value": "{{kashtagPreSignUpValue}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Validate Telephone PreSignUp\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"})",
+											"",
+											"const countryCode = pm.variables.get(\"countryCodeValue\").split('+')",
+											"",
+											"const getVerificationCode = {",
+											"  url: `https://api-qa.adios.cash/mock/users/verification-code?phone=${countryCode[1]}${pm.variables.get(\"phonePreSignUpValue\")}`,",
+											"  method: 'GET',",
+											"  header: {",
+											"    'Content-Type': 'application/json',",
+											"    'x-api-key': 'msAjtztf447bRcP6TXlXK8X5pjCgo8kN8iwL60cE'",
+											"  }",
+											"}",
+											"",
+											"pm.sendRequest( getVerificationCode, ( err, response ) => {",
+											"",
+											"    if( err != null ) {",
+											"",
+											"        console.log( err )",
+											"",
+											"    } else {",
+											"",
+											"        const data = response.json()",
+											"",
+											"        pm.environment.set( \"codeVerification\", data.code );",
+											"        ",
+											"    }",
+											"})",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"//const address   = pm.variables.replaceIn( '{{$randomStreetAddress}}' )",
+											"const uuid = pm.variables.replaceIn( '{{$guid}}' )",
+											"",
+											"//pm.environment.set( \"addressValue\", address )",
+											"pm.environment.set( \"uuid4\", uuid )",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{he_unauthorized-api-key}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"phone\": \"{{countryCodeValue}}{{phonePreSignUpValue}}\",\n    \"kashtag\": \"{{kashtagPreSignUpValue}}\",\n    \"iswpmessage\": \"false\",\n    \"id\": \"{{preSignUpCodeVelue}}\",\n    \"card\": {\n        \"fingerprint\": \"{{fingerprintPreSingUpValue}}\",\n        \"token\": \"{{cardTokenPreSingUpValue}}\"\n    },\n    \"email\": \"{{emailPreSingUpValue}}\",\n    \"country\": \"{{countryValue}}\",\n    \"firstName\": \"{{namePreSingUpValue}}\",\n    \"lastName\": \"{{lastPreSingUpValue}}\",\n    \"createdAt\": \"{{cratedAtValue}}\",\n    \"countryCode\": \"{{countryCodeValue}}\",\n    \"phoneNumber\": {{phonePreSignUpValue}},\n    \"nationality\": \"{{nationalityValue}}\",\n    \"fromPreSignUp\": true,\n    \"region\": \"CR-H\",\n    \"subregion\": \"San Rafael\",\n    \"identificationType\": \"{{identificationType}}\",\n    \"identification\": \"{{identificationPreSignUpValue}}\",\n    \"language\": \"{{languageValue}}\",\n    \"username\": \"{{uuid4}}\"    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/users/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"users",
+										"create"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create-User",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "content-type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "x-api-key",
+												"value": "{{he_unauthorized-api-key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"phone\": \"+{{phoneValue}}\",\n  \"kashtag\": \"{{kashtagValue}}\",\n  \"iswpmessage\": \"false\",\n  \"email\": \"{{emailValue}}\",\n  \"password\": \"{{passwordValue}}\",\n  \"termsConditionsAndPrivacyPolicy\": true,\n  \"firstName\": \"{{firstNameValue}}\",\n  \"lastName\": \"{{lastNameValue}}\",\n  \"nationality\": \"{{nationalityValue}}\",\n  \"region\": \"CR-H\",\n  \"subregion\": \"San Rafael\",\n  \"identificationType\": \"{{identificationType}}\",\n  \"identification\": \"{{identificationValue}}\",\n  \"language\": \"{{languageValue}}\",\n  \"country\": \"{{countryValue}}\",\n  \"username\": \"{{uuid4}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/{{stage}}/users/create",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"{{stage}}",
+												"users",
+												"create"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "20"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 18 Jul 2022 05:08:13 GMT"
+										},
+										{
+											"key": "x-amzn-RequestId",
+											"value": "e2772801-4b4b-4058-b9a8-766938ff2a75"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "x-amz-apigw-id",
+											"value": "VcmdOEeNCYcFcRg="
+										},
+										{
+											"key": "X-Amzn-Trace-Id",
+											"value": "Root=1-62d4eaba-7dfdad4628462c303af4eedf;Sampled=0"
+										},
+										{
+											"key": "X-Cache",
+											"value": "Miss from cloudfront"
+										},
+										{
+											"key": "Via",
+											"value": "1.1 3646e820868d96a9a274b6177bcbb8ec.cloudfront.net (CloudFront)"
+										},
+										{
+											"key": "X-Amz-Cf-Pop",
+											"value": "MIA3-C5"
+										},
+										{
+											"key": "X-Amz-Cf-Id",
+											"value": "Za37n5_r1ZfqxPHLWl5b0lrYHl6jCRONFfwJE7po9kwVOESo2lUVrQ=="
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"user\": \"\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Confirm User",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Create Users PreSignUp\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{he_unauthorized-api-key}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"kashtag\": \"{{kashtagPreSignUpValue}}\",\n    \"code\": {{codeVerification}},\n    \"identityData\": {\n        \"username\": \"{{uuid4}}\",\n        \"id\": \"{{preSignUpCodeVelue}}\",\n        \"card\": {\n            \"fingerprint\": \"{{fingerprintPreSingUpValue}}\",\n            \"token\": \"{{cardTokenPreSingUpValue}}\"\n        },\n        \"email\": \"{{emailPreSingUpValue}}\",\n        \"country\": \"{{countryValue}}\",\n        \"firstName\": \"{{namePreSingUpValue}}\",\n        \"lastName\": \"{{lastPreSingUpValue}}\",\n        \"createdAt\": \"{{cratedAtValue}}\",\n        \"countryCode\": \"{{countryCodeValue}}\",\n        \"phoneNumber\": {{phonePreSignUpValue}},\n        \"nationality\": \"{{nationalityValue}}\",\n        \"fromPreSignUp\": true,\n        \"region\": \"CR-H\",\n        \"subregion\": \"San Rafael\",\n        \"identificationType\": \"{{identificationType}}\",\n        \"identification\": \"{{identificationPreSignUpValue}}\",\n        \"kashtag\": \"{{kashtagPreSignUpValue}}\",\n        \"language\": \"{{languageValue}}\",\n        \"password\": \"{{passwordPreSignUpValue}}\",\n        \"iswpmessage\": true,\n        \"phone\": \"{{countryCodeValue}}{{phonePreSignUpValue}}\",\n        \"idType\": \"{{identificationType}}\"\n    },\n    \"username\": \"{{uuid4}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/users/confirm",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"users",
+										"confirm"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Login Origin Kashtag\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"    const response = JSON.parse( responseBody )",
+											"",
+											"    const dataResult = response.AuthenticationResult",
+											"",
+											"    const accessToken = dataResult.AccessToken",
+											"    const dataIdToken = dataResult.IdToken",
+											"    const dataType    = dataResult.TokenType",
+											"",
+											"    pm.environment.set( \"accessTokenValue\", accessToken )",
+											"    pm.environment.set( `token${ dataType }`, dataIdToken )",
+											"",
+											"})",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-amz-json-1.1",
+										"type": "text"
+									},
+									{
+										"key": "X-Amz-Target",
+										"value": "AWSCognitoIdentityProviderService.InitiateAuth",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"AuthFlow\": \"USER_PASSWORD_AUTH\",\n    \"AuthParameters\": {\n        \"PASSWORD\": \"{{passwordPreSignUpValue}}\",\n        \"USERNAME\": \"{{kashtagPreSignUpValue}}\"\n    },\n    \"ClientId\": \"{{cognitoClientId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cognitoUrl}}",
+									"host": [
+										"{{cognitoUrl}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Get Create User\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"    //const response = JSON.parse( responseBody )",
+											"",
+											"    //pm.environment.set( \"idKashtagValue\", response.id )",
+											"    //pm.environment.set( \"cognitoSubValue\", response.sub )",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Payment Instrument Copy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"Create Payment Instrument PreSignUp\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"    const response = JSON.parse( responseBody )",
+											"",
+											"    pm.environment.set( \"threeIdPaymentInstrument\", response.id )",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "app-version",
+										"value": "2.10.2",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"token\": \"{{cardTokenPreSingUpValue}}\",\n    \"fingerprint\": \"{{fingerprintPreSingUpValue}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/{{stage}}/payment-instruments",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"{{stage}}",
+										"payment-instruments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PreSignup Users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test( \"PreSignUp Users\", () => {",
+											"    pm.expect( pm.response.code ).to.eql( 200 )",
+											"",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{he_authorized-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "language",
+										"value": "{{languageValue}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"paymentInstrumentId\": {{threeIdPaymentInstrument}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-qa.adios.cash/v4/pre-signup/users",
+									"protocol": "https",
+									"host": [
+										"api-qa",
+										"adios",
+										"cash"
+									],
+									"path": [
+										"v4",
+										"pre-signup",
+										"users"
 									]
 								}
 							},

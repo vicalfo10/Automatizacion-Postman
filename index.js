@@ -5,11 +5,14 @@ const open = require('open')
 
 const { menu,
         subMenu,
+        subMenuSignUp,
+        subMenuPreSignUp,
         subMenuCard,
         subMenuCollection,
         subMenuExecuteCollection,
         pausa,
-        readInput,
+        readInputSignUp,
+        readInputPreSignUp,
         dataCollection,
         listReport } = require('./helpers/menu')
 
@@ -25,6 +28,8 @@ const main = async() => {
     //const busquedas = new Busquedas();
     let optMenu
     let optSubMenu
+    let optSubMenuSignUp
+    let optSubMenuPreSignUp
     let optSubMenuCard
     let optSubMenuCollection
 
@@ -40,7 +45,7 @@ const main = async() => {
 
             case 1:
 
-                do{
+                do {
 
                     optSubMenu = await subMenu()
 
@@ -48,71 +53,123 @@ const main = async() => {
 
                         case 1:
 
-                            data.stage = await readInput( 'Stage: ', optSubMenu )
-
-                            break
-                        case 2:
-
-                            data.identification = await readInput( 'Identificación: ', optSubMenu )
-
-                            break
-                        case 3:
-
-                            data.kashtag = await readInput( 'Kashtag: ', optSubMenu )
-    
-                            break
-                        case 4:
-
-                            data.phone = await readInput( 'Teléfono: ', optSubMenu )
-
-                            break
-                        case 5:
-
-                            data.password = await readInput( 'Contraseña: ', optSubMenu )
-
-                            break
-                        case 6:
-
                             do {
-                                optSubMenuCard = await subMenuCard()
 
-                                switch ( optSubMenuCard ) {
-                                    
+                                optSubMenuSignUp = await subMenuSignUp()
+        
+                                switch ( optSubMenuSignUp ) {
+        
                                     case 1:
-
-                                        data.card1 = await cardGenerator()
-                                    
+            
+                                        data.stage = await readInputSignUp( 'Stage: ', optSubMenuSignUp )
+            
                                         break
                                     case 2:
-
-                                        data.card2 = await cardGenerator()
-                                    
+            
+                                        data.identification = await readInputSignUp( 'Identificación: ', optSubMenuSignUp )
+            
                                         break
                                     case 3:
-
-                                        data.card3 = await cardGenerator()
-                                    
+            
+                                        data.kashtag = await readInputSignUp( 'Kashtag: ', optSubMenuSignUp )
+                
                                         break
                                     case 4:
+            
+                                        data.phone = await readInputSignUp( 'Teléfono: ', optSubMenuSignUp )
+            
+                                        break
+                                    case 5:
+            
+                                        data.password = await readInputSignUp( 'Contraseña: ', optSubMenuSignUp )
+            
+                                        break
+                                    case 6:
+            
+                                        do {
+                                            optSubMenuCard = await subMenuCard()
+            
+                                            switch ( optSubMenuCard ) {
+                                                
+                                                case 1:
+            
+                                                    data.card1 = await cardGenerator()
+                                                
+                                                    break
+                                                case 2:
+            
+                                                    data.card2 = await cardGenerator()
+                                                
+                                                    break
+                                                case 3:
+            
+                                                    data.card3 = await cardGenerator()
+                                                
+                                                    break
+                                                case 4:
+            
+                                                    data.card4 = await cardGenerator()
+                                                    
+                                                    break
+                                            }
+            
+                                            if (optSubMenuCard !== 0) await pausa()
+            
+                                        } while ( optSubMenuCard !== 0 )
+            
+                                        break
+                                    case 7:
+            
+                                        data.phoneTransfer = await readInputSignUp( 'Teléfono: ', optSubMenuSignUp )
+                
+                                        break
+                                }
+            
+                                if ( optSubMenuSignUp !== 0 ) await pausa()
+                                
+                            } while ( optSubMenuSignUp !== 0 );
+                            
+                            break
 
-                                        data.card4 = await cardGenerator()
-                                        
+                        case 2:
+
+                            do {
+
+                                optSubMenuPreSignUp = await subMenuPreSignUp()
+
+                                switch ( optSubMenuPreSignUp ) {
+        
+                                    case 1:
+            
+                                        data.identificationPre = await readInputPreSignUp( 'Identificación: ', optSubMenuPreSignUp )
+            
+                                        break
+                                    case 2:
+            
+                                        data.kashtagPre = await readInputPreSignUp( 'Kashtag: ', optSubMenuPreSignUp )
+                
+                                        break
+                                    case 3:
+            
+                                        data.phonePre = await readInputPreSignUp( 'Teléfono: ', optSubMenuPreSignUp )
+            
+                                        break
+                                    case 4:
+            
+                                        data.passwordPre = await readInputPreSignUp( 'Contraseña: ', optSubMenuPreSignUp )
+            
                                         break
                                 }
 
-                                if (optSubMenuCard !== 0) await pausa()
+                                if ( optSubMenuPreSignUp !== 0 ) await pausa()
+                            
+                            } while ( optSubMenuPreSignUp !== 0 );
 
-                            } while ( optSubMenuCard !== 0 )
+                                break
 
-                            break
-                        case 7:
-
-                            data.phoneTransfer = await readInput( 'Teléfono: ', optSubMenu )
-    
-                            break
                     }
 
-                    if (optSubMenu !== 0) await pausa()
+                    if ( optSubMenu !== 0) await pausa()
 
                 } while ( optSubMenu !== 0 )
                 

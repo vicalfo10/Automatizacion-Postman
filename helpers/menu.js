@@ -59,6 +59,35 @@ const subMenu = async() => {
         {
             type: 'rawlist',
             name: 'opcion',
+            message: '¿Qué usuario deseas crear?',
+            choices: [
+                {
+                    value: 1,
+                    name: `Sign Up`
+                },
+                {
+                    value: 2,
+                    name: `Pre Sign Up (Banca Movil)`
+                },
+                {
+                    value: 0,
+                    name: `Salir`
+                },
+            ]
+        }
+    ]
+
+    const { opcion } = await inquirer.prompt(optionSubMenu)
+
+    return opcion
+}
+
+const subMenuSignUp = async() => {
+
+    const optionSubMenuSingUp = [
+        {
+            type: 'rawlist',
+            name: 'opcion',
             message: '¿Qué variable desea llenar?',
             choices: [
                 {
@@ -97,7 +126,44 @@ const subMenu = async() => {
         }
     ]
 
-    const { opcion } = await inquirer.prompt(optionSubMenu)
+    const { opcion } = await inquirer.prompt(optionSubMenuSingUp)
+
+    return opcion
+}
+
+const subMenuPreSignUp = async() => {
+
+    const optionSubMenuPreSingUp = [
+        {
+            type: 'rawlist',
+            name: 'opcion',
+            message: '¿Qué variable desea llenar?',
+            choices: [
+                {
+                    value: 1,
+                    name: `Ingresar Identificación`
+                },
+                {
+                    value: 2,
+                    name: `Ingresar Kashtag`
+                },
+                {
+                    value: 3,
+                    name: `Ingresar Teléfono`
+                },
+                {
+                    value: 4,
+                    name: `Ingresar Contraseña`
+                },
+                {
+                    value: 0,
+                    name: `Salir`
+                },
+            ]
+        }
+    ]
+
+    const { opcion } = await inquirer.prompt(optionSubMenuPreSingUp)
 
     return opcion
 }
@@ -212,7 +278,7 @@ const pausa = async() => {
     await inquirer.prompt( question )
 }
 
-const readInput = async( message, opt ) => {
+const readInputSignUp = async( message, opt ) => {
 
     if ( opt == 1 ){
 
@@ -360,6 +426,112 @@ const readInput = async( message, opt ) => {
     }
 }
 
+const readInputPreSignUp = async( message, opt ) => {
+
+    if ( opt == 1 ) {
+
+        const question = [
+            {
+                type: 'input',
+                name: 'identification',
+                message,
+                validate( value ) {
+                    if( value.length === 0 ) {
+                        return 'Por favor ingrese un valor.'
+                    }
+                    return true
+                }
+            }
+        ]
+
+        const { identification } = await inquirer.prompt( question )
+        return identification
+
+    } else if ( opt == 2 ) {
+
+        const question = [
+            {
+                type: 'input',
+                name: 'kashtag',
+                message,
+                validate( value ) {
+                    if( value.length === 0 ) {
+                        return 'Por favor ingrese un valor.'
+                    }
+                    return true
+                }
+            }
+        ]
+
+        const { kashtag } = await inquirer.prompt( question )
+        return kashtag
+
+    } else if ( opt == 3 ) {
+
+        const question = [
+            {
+                type: 'input',
+                name: 'phone',
+                message,
+                validate( value ) {
+                    if( value.length === 0 ) {
+                        return 'Por favor ingrese un valor.'
+                    } else if( isNaN( value ) ) {
+                        return 'Solo se aceptan numeros.'
+                    } else if( value.length !== 8 ) {
+                        return 'Número teléfono solo 8 digitos'
+                    }
+                    return true
+                }
+            }
+        ]
+
+        const { phone } = await inquirer.prompt( question )
+        return phone
+
+    } else if ( opt == 4 ) {
+
+        const question = [
+            {
+                type: 'input',
+                name: 'password',
+                message,
+                validate( value ) {
+                    if( value.length === 0 ) {
+                        return 'Por favor ingrese un valor'
+                    }
+                    return true
+                }
+            }
+        ]
+
+        const { password } = await inquirer.prompt( question )
+        return password
+
+    } else if ( opt == 5 ) {
+
+        const question = [
+            {
+                type: 'input',
+                name: 'card',
+                message,
+                validate( value ) {
+                    if( value.length === 0 ) {
+                        return 'Por favor ingrese un valor'
+                    } else if( isNaN( value ) ) {
+                        return 'Solo se aceptan numeros.'
+                    }
+                    return true
+                }
+            }
+        ]
+
+        const { card } = await inquirer.prompt( question )
+        return card
+
+    } 
+}
+
 const dataCollection = async( valueCollection ) => {
 
     let nameOption = ''
@@ -432,11 +604,14 @@ const listReport = async() => {
 module.exports = {
     menu,
     subMenu,
+    subMenuSignUp,
+    subMenuPreSignUp,
     subMenuCard,
     subMenuCollection,
     subMenuExecuteCollection,
     pausa,
-    readInput,
+    readInputSignUp,
+    readInputPreSignUp,
     dataCollection,
     listReport
 }
