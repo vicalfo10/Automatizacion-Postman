@@ -5190,9 +5190,26 @@
 									"script": {
 										"exec": [
 											"pm.test(\"Change Kashtag\", () => {",
-											"    //pm.response.to.have.status(200)",
-											"    pm.expect(pm.response.code).to.eql(200)",
-											"})"
+											"",
+											"    const codeStatus = pm.response.code",
+											"",
+											"    if( codeStatus === 200 ){",
+											"",
+											"        pm.expect(pm.response.code).to.eql(200)",
+											"",
+											"    }else{",
+											"",
+											"        const beforeVar = pm.variables.get(\"kashtagValue\")",
+											"        const afterVar  = beforeVar.substr( 0, beforeVar.length - 1 )",
+											"",
+											"        pm.environment.set( \"kashtagValue\", afterVar )",
+											"        pm.expect(pm.response.code).to.not.eql(codeStatus)",
+											"        ",
+											"    }",
+											"",
+											"})",
+											"",
+											""
 										],
 										"type": "text/javascript"
 									}
