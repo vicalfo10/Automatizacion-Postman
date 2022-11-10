@@ -12,6 +12,8 @@ const generalExecution = async( values ) => {
     console.log( 'HOLA PreSignUP: ' + data.values[75].key + ' -- ' + data.values[76].key + ' -- ' + data.values[78].key + ' -- ' + data.values[79].key )
     console.log( 'DATA: ' +  values.stage + ' - ' + values.identificationPre + ' - ' + values.kashtagPre + ' - ' + values.phonePre + ' - ' + values.passwordPre)*/
 
+    console.log( 'HOLA SignUPKYC: ' + data.values[85].key + ' -- ' + data.values[86].key + ' -- ' + data.values[87].key + ' -- ' + data.values[91].key + ' -- ' + data.values[100].key )
+
     data.values[5].value    = values.stage
     data.values[7].value    = values.identification
     data.values[10].value   = values.kashtag
@@ -26,6 +28,11 @@ const generalExecution = async( values ) => {
     data.values[76].value   = values.kashtagPre
     data.values[78].value   = values.phonePre
     data.values[79].value   = values.passwordPre
+    data.values[85].value   = values.identificationKYC
+    data.values[86].value   = values.kashtagKYC
+    data.values[87].value   = values.phoneKYC
+    data.values[91].value   = values.passwordKYC
+    data.values[100].value  = values.card5
 
     await fs.writeFileSync( process.env.PATHENVIRONMENT, JSON.stringify( data, null, 2 ) )
 

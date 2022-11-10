@@ -70,6 +70,10 @@ const subMenu = async() => {
                     name: `Pre Sign Up (Banca Movil)`
                 },
                 {
+                    value: 3,
+                    name: `Sign Up FacePhi`
+                },
+                {
                     value: 0,
                     name: `Salir`
                 },
@@ -168,6 +172,43 @@ const subMenuPreSignUp = async() => {
     return opcion
 }
 
+const subMenuSignUpKYC = async() => {
+
+    const optionSubMenuSingUpKYC = [
+        {
+            type: 'rawlist',
+            name: 'opcion',
+            message: '¿Qué variable desea llenar?',
+            choices: [
+                {
+                    value: 1,
+                    name: `Ingresar Identificación`
+                },
+                {
+                    value: 2,
+                    name: `Ingresar Kashtag`
+                },
+                {
+                    value: 3,
+                    name: `Ingresar Teléfono`
+                },
+                {
+                    value: 4,
+                    name: `Ingresar Contraseña`
+                },
+                {
+                    value: 0,
+                    name: `Salir`
+                },
+            ]
+        }
+    ]
+
+    const { opcion } = await inquirer.prompt(optionSubMenuSingUpKYC)
+
+    return opcion
+}
+
 const subMenuCard = async() => {
 
     const optionSubCard = [
@@ -191,6 +232,10 @@ const subMenuCard = async() => {
                 {
                     value: 4,
                     name: `Transferencia a Tarjeta`
+                },
+                {
+                    value: 5,
+                    name: `Transferencia a Cross Border`
                 },
                 {
                     value: 0,
@@ -532,6 +577,91 @@ const readInputPreSignUp = async( message, opt ) => {
     } 
 }
 
+const readInputSignUpKYC = async( message, opt ) => {
+
+    if ( opt == 1 ) {
+
+        const question = [
+            {
+                type: 'input',
+                name: 'identification',
+                message,
+                validate( value ) {
+                    if( value.length === 0 ) {
+                        return 'Por favor ingrese un valor.'
+                    }
+                    return true
+                }
+            }
+        ]
+
+        const { identification } = await inquirer.prompt( question )
+        return identification
+
+    } else if ( opt == 2 ) {
+
+        const question = [
+            {
+                type: 'input',
+                name: 'kashtag',
+                message,
+                validate( value ) {
+                    if( value.length === 0 ) {
+                        return 'Por favor ingrese un valor.'
+                    }
+                    return true
+                }
+            }
+        ]
+
+        const { kashtag } = await inquirer.prompt( question )
+        return kashtag
+
+    } else if ( opt == 3 ) {
+
+        const question = [
+            {
+                type: 'input',
+                name: 'phone',
+                message,
+                validate( value ) {
+                    if( value.length === 0 ) {
+                        return 'Por favor ingrese un valor.'
+                    } else if( isNaN( value ) ) {
+                        return 'Solo se aceptan numeros.'
+                    } else if( value.length !== 11 ) {
+                        return 'Número teléfono: código de area + 8 digitos.'
+                    }
+                    return true
+                }
+            }
+        ]
+
+        const { phone } = await inquirer.prompt( question )
+        return phone
+
+    } else if ( opt == 4 ) {
+
+        const question = [
+            {
+                type: 'input',
+                name: 'password',
+                message,
+                validate( value ) {
+                    if( value.length === 0 ) {
+                        return 'Por favor ingrese un valor'
+                    }
+                    return true
+                }
+            }
+        ]
+
+        const { password } = await inquirer.prompt( question )
+        return password
+
+    }
+}
+
 const dataCollection = async( valueCollection ) => {
 
     let nameOption = ''
@@ -606,12 +736,14 @@ module.exports = {
     subMenu,
     subMenuSignUp,
     subMenuPreSignUp,
+    subMenuSignUpKYC,
     subMenuCard,
     subMenuCollection,
     subMenuExecuteCollection,
     pausa,
     readInputSignUp,
     readInputPreSignUp,
+    readInputSignUpKYC,
     dataCollection,
     listReport
 }

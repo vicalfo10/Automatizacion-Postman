@@ -7,12 +7,14 @@ const { menu,
         subMenu,
         subMenuSignUp,
         subMenuPreSignUp,
+        subMenuSignUpKYC,
         subMenuCard,
         subMenuCollection,
         subMenuExecuteCollection,
         pausa,
         readInputSignUp,
         readInputPreSignUp,
+        readInputSignUpKYC,
         dataCollection,
         listReport } = require('./helpers/menu')
 
@@ -30,6 +32,7 @@ const main = async() => {
     let optSubMenu
     let optSubMenuSignUp
     let optSubMenuPreSignUp
+    let optSubMenuSignUpKYC
     let optSubMenuCard
     let optSubMenuCollection
 
@@ -111,6 +114,11 @@ const main = async() => {
                                                     data.card4 = await cardGenerator()
                                                     
                                                     break
+                                                case 5:
+            
+                                                    data.card5 = await cardGenerator()
+                                                        
+                                                    break
                                             }
             
                                             if (optSubMenuCard !== 0) await pausa()
@@ -165,6 +173,42 @@ const main = async() => {
                             
                             } while ( optSubMenuPreSignUp !== 0 );
 
+                            break
+
+                            case 3:
+
+                                do {
+    
+                                    optSubMenuSignUpKYC = await subMenuSignUpKYC()
+    
+                                    switch ( optSubMenuSignUpKYC ) {
+            
+                                        case 1:
+                
+                                            data.identificationKYC = await readInputSignUpKYC( 'Identificación: ', optSubMenuSignUpKYC )
+                
+                                            break
+                                        case 2:
+                
+                                            data.kashtagKYC = await readInputSignUpKYC( 'Kashtag: ', optSubMenuSignUpKYC )
+                    
+                                            break
+                                        case 3:
+                
+                                            data.phoneKYC = await readInputSignUpKYC( 'Teléfono: ', optSubMenuSignUpKYC )
+                
+                                            break
+                                        case 4:
+                
+                                            data.passwordKYC = await readInputSignUpKYC( 'Contraseña: ', optSubMenuSignUpKYC )
+                
+                                            break
+                                    }
+    
+                                    if ( optSubMenuSignUpKYC !== 0 ) await pausa()
+                                
+                                } while ( optSubMenuSignUpKYC !== 0 );
+    
                                 break
 
                     }
