@@ -11,28 +11,71 @@ const generalExecution = async( values ) => {
     /*console.log( 'HOLA SignUP: ' + data.values[5].key + ' -- ' + data.values[7].key + ' -- ' + data.values[10].key + ' -- ' + data.values[11].key + ' -- ' + data.values[14].key + ' -- ' + data.values[30].key + ' -- ' + data.values[31].key + ' -- ' + data.values[32].key + ' -- ' + data.values[33].key + ' -- ' + data.values[67].key )
     console.log( 'HOLA PreSignUP: ' + data.values[75].key + ' -- ' + data.values[76].key + ' -- ' + data.values[78].key + ' -- ' + data.values[79].key )
     console.log( 'DATA: ' +  values.stage + ' - ' + values.identificationPre + ' - ' + values.kashtagPre + ' - ' + values.phonePre + ' - ' + values.passwordPre)*/
+    //console.log( 'HOLA SignUPKYC: ' + data.values[83].value + ' -- ' + data.values[86].key + ' -- ' + data.values[87].key + ' -- ' + data.values[91].key + ' -- ' + data.values[100].key )
 
-    console.log( 'HOLA SignUPKYC: ' + data.values[85].key + ' -- ' + data.values[86].key + ' -- ' + data.values[87].key + ' -- ' + data.values[91].key + ' -- ' + data.values[100].key )
+    data.values[6].value    = values.stage
+    data.values[8].value    = values.identification
+    data.values[11].value   = values.kashtag
+    data.values[12].value   = values.phone
+    data.values[15].value   = values.password
+    data.values[26].value   = process.env.TOKENADMIN
+    data.values[32].value   = values.card1
+    data.values[33].value   = values.card2
+    data.values[34].value   = values.card3
+    data.values[35].value   = values.card4
+    data.values[65].value   = values.phoneTransfer
+    data.values[73].value   = values.identificationPre
+    data.values[74].value   = values.kashtagPre
+    data.values[76].value   = values.phonePre
+    data.values[77].value   = values.passwordPre
+    data.values[83].value   = values.identificationKYC
+    data.values[84].value   = values.kashtagKYC
+    data.values[85].value   = values.phoneKYC
+    data.values[89].value   = values.passwordKYC
+    data.values[98].value  = values.card5
 
-    data.values[5].value    = values.stage
-    data.values[7].value    = values.identification
-    data.values[10].value   = values.kashtag
-    data.values[11].value   = values.phone
-    data.values[14].value   = values.password
-    data.values[30].value   = values.card1
-    data.values[31].value   = values.card2
-    data.values[32].value   = values.card3
-    data.values[33].value   = values.card4
-    data.values[67].value   = values.phoneTransfer
-    data.values[75].value   = values.identificationPre
-    data.values[76].value   = values.kashtagPre
-    data.values[78].value   = values.phonePre
-    data.values[79].value   = values.passwordPre
-    data.values[85].value   = values.identificationKYC
-    data.values[86].value   = values.kashtagKYC
-    data.values[87].value   = values.phoneKYC
-    data.values[91].value   = values.passwordKYC
-    data.values[100].value  = values.card5
+    let vSignUp = [
+        {
+            "Stage"                 : data.values[6].value,
+            "Identificacion"        : data.values[8].value,
+            "Kashtag"               : data.values[11].value,
+            "Teléfono"              : data.values[12].value,
+            "Password"              : data.values[15].value,
+            "Tarjeta Uno"           : data.values[32].value,
+            "Tarjeta Dos"           : data.values[33].value,
+            "Tarjeta Tres"          : data.values[35].value,
+            "Teléfono a Tarjeta"    : data.values[65].value
+        }
+    ]
+
+    let vPreSignUp = [
+        {
+            "Identificación"    : data.values[73].value,
+            "Kashtag"           : data.values[74].value,
+            "Teléfono"          : data.values[76].value,
+            "Password"          : data.values[77].value,
+            "Tarjeta"           : data.values[34].value
+        }
+    ]
+
+    let vSignUpKYC = [
+        {
+            "Identificación"    : data.values[83].value,
+            "Kashtag"           : data.values[84].value,
+            "Teléfono"          : data.values[85].value,
+            "Password"          : data.values[89].value,
+            "Tarjeta"           : data.values[98].value
+        }
+    ]
+
+    console.log( '\nFlujo SignUp'.cyan )
+    console.table( vSignUp )
+
+    console.log( '\nFlujo PreSignUp'.cyan )
+    console.table( vPreSignUp )
+
+    console.log( '\nFlujo SignUp With KYC'.cyan )
+    console.table( vSignUpKYC )
 
     await fs.writeFileSync( process.env.PATHENVIRONMENT, JSON.stringify( data, null, 2 ) )
 

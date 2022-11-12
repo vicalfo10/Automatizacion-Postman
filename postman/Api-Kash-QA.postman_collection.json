@@ -4057,174 +4057,6 @@
 					]
 				},
 				{
-					"name": "Buy Kintos",
-					"item": [
-						{
-							"name": "Validate Email",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Validate Register Email\", () => {",
-											"    pm.expect(pm.response.code).to.eql(200)",
-											"",
-											"    const response = JSON.parse(responseBody)",
-											"",
-											"    pm.environment.set(\"customerIdValue\", response.customer.customerId)",
-											"})"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "x-api-key",
-										"value": "{{he_authorized-api-key}}",
-										"type": "text"
-									},
-									{
-										"key": "language",
-										"value": "{{languageValue}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/{{stage}}/kinto/users?email={{emailKintoValue}}",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"{{stage}}",
-										"kinto",
-										"users"
-									],
-									"query": [
-										{
-											"key": "email",
-											"value": "{{emailKintoValue}}"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Packages",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Validate Packages\", () => {",
-											"    pm.expect(pm.response.code).to.eql(200)",
-											"",
-											"    const response      = JSON.parse(responseBody)",
-											"    const countPackage  = response.count()",
-											"",
-											"    const valuePackage = (max) => {",
-											"        return Math.floor(Math.random() * max)",
-											"    }",
-											"",
-											"    const idPackage = valuePackage(countPackage)",
-											"",
-											"    pm.environment.set(\"kintoPackIdValue\", response[idPackage].id)",
-											"    pm.environment.set(\"kintoPackTitleValue\", response[idPackage].title)",
-											"    //console.log(response.count())",
-											"})",
-											"",
-											"/*pm.test(\"\", () => {",
-											"    postman.setNextRequest('Pyament')",
-											"})*/"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "x-api-key",
-										"value": "{{he_authorized-api-key}}",
-										"type": "text"
-									},
-									{
-										"key": "language",
-										"value": "{{languageValue}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/{{stage}}/kinto/packages",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"{{stage}}",
-										"kinto",
-										"packages"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Charge Wallet",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test( \"Post Charge Wallt\", () => {",
-											"    pm.expect( pm.response.code ).to.eql( 200 )",
-											"})"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"customerEmail\": \"{{emailKintoValue}}\",\n  \"customerId\": {{customerIdValue}},\n  \"kintoPackId\": {{kintoPackIdValue}},\n  \"serviceCost\": 0,\n  \"description\": \"{{kintoPackTitleValue}}\",\n  \"source\": {{idPaymentInstrument}},\n  \"currency\": \"{{currencyValue}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/{{stage}}/kinto/charge-wallet",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"{{stage}}",
-										"kinto",
-										"charge-wallet"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
 					"name": "Transfer to Other Countries",
 					"item": [
 						{
@@ -8370,7 +8202,7 @@
 								"header": [
 									{
 										"key": "authorization",
-										"value": "eyJraWQiOiJTXC9WeGVMUkR5OUhjaXYzZ0s1YU0xOTB0RGp5NTgxWU1hNGp2UXlLTjJpbz0iLCJhbGciOiJSUzI1NiJ9.eyJjdXN0b206Y291bnRyeSI6IkNSSSIsInN1YiI6IjU4YTIxY2NlLTA1ODUtNGRmYi1iYTUwLWIyMDY3MjU3YmUyOSIsImNvZ25pdG86Z3JvdXBzIjpbIkFkbWluIl0sImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJjdXN0b206c3VwZXJBZG1pbiI6IjEiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0yLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMl9XTHR4UVVxQ1MiLCJjb2duaXRvOnVzZXJuYW1lIjoiNThhMjFjY2UtMDU4NS00ZGZiLWJhNTAtYjIwNjcyNTdiZTI5IiwiZ2l2ZW5fbmFtZSI6IlZpY3RvciIsImNvZ25pdG86cm9sZXMiOlsiYXJuOmF3czppYW06OjIxMDkwMTcwNzgxNzpyb2xlXC9Db2duaXRvX0thc2hfQWRtaW5fR3JvdXBfcWFfQWRtaW5fUm9sZSJdLCJhdWQiOiIzYTM1bGRucHQxZGYxNzZqMTQ3cmVpcmI5OSIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNjY4MTEzMTA3LCJleHAiOjE2NjgxNDE5MDcsImlhdCI6MTY2ODExMzEwNywiZmFtaWx5X25hbWUiOiJHcmFuYWRvcyBSb2RyaWd1ZXoiLCJlbWFpbCI6InZncmFuYWRvc0BuYW11dGVrLmNvbSJ9.fUjgiIh8jUzhjOyykOZ9GeaxHYMC90RuQj8XTKskPIr_88XK4OUAhfZoNi2ffrWgwT2PatqcbzyjA4LZ-aOJ4CQW3Ok7_t_EfBec7dD8uo_3-AaXhwYKB4_KM7Nj9qoLRIsCIpfSQ8HYsd__Z8stfpKWkHu2btYRMHSaQeVJy7c6UPwLWEYFJwGaW1xPautKa0izfERBb7BPDApH41aOcAF1pmquxq8u_p1eLePKZ95ZZau_VSBHdDRaQkGm1zG2GEe0Fu0KY5cp2hUbhojJhcSTP554KyVf4Q847xiDFl746NNggQ77ZICnau-PteZZF4GHKmIGWEepNEv57iGiOg",
+										"value": "{{tokenAdmin}}",
 										"type": "text"
 									}
 								],
@@ -8384,12 +8216,9 @@
 									}
 								},
 								"url": {
-									"raw": "https://api-admin-qa.adios.cash/transactions",
-									"protocol": "https",
+									"raw": "{{baseUrlAdmin}}/transactions",
 									"host": [
-										"api-admin-qa",
-										"adios",
-										"cash"
+										"{{baseUrlAdmin}}"
 									],
 									"path": [
 										"transactions"
